@@ -31,8 +31,11 @@
 
     chart.draw(function (selection, data){
 
-        var relations = {};
+        var relationsMap = d3.map();
         var chordMatrix = [];
+
+        var cols = [];
+        var rows = [];
 
         console.log(data);
         /*
@@ -42,19 +45,22 @@
          */
         data.children.forEach(function(source){
 
+            if(rows.indexOf(source.name) === -1){
+                rows.push(source.name);
+            }
+
             source.children.forEach(function(target){
 
-                // Make sure that field is initialized
-                if(!relations[source.name] || !relations[source.name][target.name]) {
-                    relations[source.name] = {};
-                    relations[source.name][target.name] = target.size;
+                if(cols.indexOf(target.name) === -1){
+                    cols.push(target.name);
                 }
 
-                relations[source.name][target.name] += target.size;
+
             });
         });
 
-        console.log(relations);
+        console.log(rows);
+        console.log(cols);
 
         var g = selection
             .attr("width", +width() )
@@ -87,9 +93,7 @@
             .style("fill", function(d) { return fill(d.index); })
             .style("stroke", function(d) { return fill(d.index); })
             .style("opacity", 0.8)
-            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-            .on("mouseover", fade(.1))
-            .on("mouseout", fade(1));
+            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
 
         var ticks = g.append("g").selectAll("g")
             .data(chord.groups)
@@ -135,14 +139,16 @@
             });
         }
 
+        /*
         // Returns an event handler for fading a given chord group.
         function fade(opacity) {
             return function(g, i) {
-                g.selectAll(".chord path")
+                svg.selectAll(".chord path")
                     .filter(function(d) { return d.source.index != i && d.target.index != i; })
                     .transition()
                     .style("opacity", opacity);
             };
         }
+        */
     });
 })();
