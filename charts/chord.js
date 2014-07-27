@@ -86,8 +86,9 @@
             .enter().append("path")
             .style("fill", function(d) { return fill(d.index); })
             .style("stroke", "#333")
-            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-            .style("opacity", 0.8);
+            .style("opacity", 1)
+            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
+
 
         var ticks = g.append("g").selectAll("g")
             .data(chord.groups)
