@@ -122,7 +122,7 @@
             .enter().append("path")
             .attr("d", d3.svg.chord().radius(innerRadius))
             .style("fill", function(d) { return fill(d.target.index); })
-            .style("opacity", 1);
+            .style("opacity", 0.9);
 
         // Returns an array of tick angles and labels, given a group.
         function groupTicks(d) {
