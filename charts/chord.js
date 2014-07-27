@@ -86,7 +86,9 @@
             .enter().append("path")
             .style("fill", function(d) { return fill(d.index); })
             .style("stroke", function(d) { return fill(d.index); })
-            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
+            .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
+            .on("mouseover", fade(.1))
+            .on("mouseout", fade(1));
 
         var ticks = g.append("g").selectAll("g")
             .data(chord.groups)

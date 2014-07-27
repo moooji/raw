@@ -11,13 +11,13 @@
  	// and limiting the type of data to Numbers only
 	var x = model.dimension() 
 		.title('X Axis')
-		.types(Number)
+		.types(Number);
 
 	// Y axis dimension
 	// Same as X
 	var y = model.dimension() 
 		.title('Y Axis')
-		.types(Number)
+		.types(Number);
 
 	// Mapping function
 	// For each record in the data returns the values
@@ -27,9 +27,9 @@
 			return {
 				x : +x(d),
 				y : +y(d)
-			}
-		})
-	})
+			};
+		});
+	});
 
 	
 	// The Chart
@@ -37,7 +37,7 @@
 	var chart = raw.chart()
 		.title("Simple Scatter Plot")
 		.description("A simple chart for test")
-		.model(model)
+		.model(model);
 
 	// Some options we want to expose to the users
 	// For each of them a GUI component will be created
@@ -48,17 +48,17 @@
 	// Width
 	var width = chart.number()
 		.title('Width')
-		.defaultValue(900)
+		.defaultValue(900);
 
 	// Height
 	var height = chart.number()
 		.title('Height')
-		.defaultValue(600)
+		.defaultValue(600);
 
 	// A simple margin
 	var margin = chart.number()
 		.title('margin')
-		.defaultValue(10)
+		.defaultValue(10);
 
 	// Drawing function
 	// selection represents the d3 selection (svg)
@@ -69,7 +69,7 @@
 		// svg size
 		selection
 			.attr("width", width())
-			.attr("height", height())
+			.attr("height", height());
 
 		// x and y scale
 		var xScale = d3.scale.linear().domain([0, d3.max(data, function (d){ return d.x; })]).range([margin(), width()-margin()]);
@@ -81,7 +81,7 @@
 			.enter().append("circle")
 			.attr("cx", function(d) { return xScale(d.x); })
 			.attr("cy", function(d) { return yScale(d.y); })
-			.attr("r", 5)
+			.attr("r", 5);
 
-	})
+	});
 })();
