@@ -81,7 +81,7 @@
                     var targetIndex = uniqueLabels.indexOf(target.name);
 
                     chordMatrix[sourceIndex][targetIndex] += target.size;
-                    chordMatrix[targetIndex][sourceIndex] += target.size;
+                    //chordMatrix[targetIndex][sourceIndex] += target.size;
                 });
             }
         });
