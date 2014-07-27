@@ -33,9 +33,7 @@
 
         var relationsMap = d3.map();
         var chordMatrix = [];
-
-        var cols = [];
-        var rows = [];
+        var uniqueLabels = [];
 
         console.log(data);
         /*
@@ -45,22 +43,26 @@
          */
         data.children.forEach(function(source){
 
-            if(rows.indexOf(source.name) === -1){
-                rows.push(source.name);
+            if(uniqueLabels.indexOf(source.name) === -1){
+                uniqueLabels.push(source.name);
             }
+
+            var sourceIndex = uniqueLabels.indexOf(source.name);
 
             source.children.forEach(function(target){
 
-                if(cols.indexOf(target.name) === -1){
-                    cols.push(target.name);
+                if(uniqueLabels.indexOf(target.name) === -1){
+                    uniqueLabels.push(target.name);
                 }
 
+                var targetIndex = uniqueLabels.indexOf(target.name);
 
+                chordMatrix[sourceIndex][targetIndex] = target.size;
+                chordMatrix[targetIndex][sourceIndex] = target.size;
             });
         });
 
-        console.log(rows);
-        console.log(cols);
+        console.log(chordMatrix);
 
         var g = selection
             .attr("width", +width() )
