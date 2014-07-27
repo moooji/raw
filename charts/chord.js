@@ -62,8 +62,6 @@
             }
             chordMatrix.push(row);
         }
-        console.log(chordMatrix);
-
 
         data.children.forEach(function(source){
 
@@ -81,8 +79,8 @@
 
                 var targetIndex = uniqueLabels.indexOf(target.name);
 
-                chordMatrix[sourceIndex][targetIndex] = target.size;
-                chordMatrix[targetIndex][sourceIndex] = target.size;
+                chordMatrix[sourceIndex][targetIndex] += target.size;
+                chordMatrix[targetIndex][sourceIndex] += target.size;
             });
         });
 
@@ -104,7 +102,7 @@
         var chord = d3.layout.chord()
             .padding(.05)
             .sortSubgroups(d3.descending)
-            .matrix(matrix);
+            .matrix(chordMatrix);
 
         var innerRadius = Math.min(+width(), +height()) * .41,
             outerRadius = innerRadius * 1.1;
