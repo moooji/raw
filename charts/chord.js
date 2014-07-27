@@ -71,7 +71,7 @@
 
             var sourceIndex = uniqueLabels.indexOf(source.name);
 
-            if(!source.children){
+            if(source.children){
                 source.children.forEach(function(target){
 
                     if(uniqueLabels.indexOf(target.name) === -1){
