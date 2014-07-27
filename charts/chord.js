@@ -46,6 +46,30 @@
             if(uniqueLabels.indexOf(source.name) === -1){
                 uniqueLabels.push(source.name);
             }
+            source.children.forEach(function(target){
+
+                if(uniqueLabels.indexOf(target.name) === -1){
+                    uniqueLabels.push(target.name);
+                }
+            });
+        });
+
+        // Prepare matrix
+        for(var i = 0; i < uniqueLabels.length; i++) {
+            var row = [];
+            for(var j = 0; j < uniqueLabels.length; j++) {
+                row[j] = 0;
+            }
+            chordMatrix.push(row);
+        }
+        console.log(chordMatrix);
+
+
+        data.children.forEach(function(source){
+
+            if(uniqueLabels.indexOf(source.name) === -1){
+                uniqueLabels.push(source.name);
+            }
 
             var sourceIndex = uniqueLabels.indexOf(source.name);
 
