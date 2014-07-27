@@ -85,8 +85,8 @@
             .data(chord.groups)
             .enter().append("path")
             .style("fill", function(d) { return fill(d.index); })
-            .style("stroke", "#333")
-            .style("opacity", 0.9)
+            .style("stroke", function(d) { return fill(d.index); })
+            .style("opacity", 0.8)
             .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
             .on("mouseover", fade(.1))
             .on("mouseout", fade(1));
@@ -138,7 +138,7 @@
         // Returns an event handler for fading a given chord group.
         function fade(opacity) {
             return function(g, i) {
-                svg.selectAll(".chord path")
+                g.selectAll(".chord path")
                     .filter(function(d) { return d.source.index != i && d.target.index != i; })
                     .transition()
                     .style("opacity", opacity);
