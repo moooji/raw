@@ -23,15 +23,19 @@
 
     var chordOpacity = chart.number()
         .title("Chord opacity")
-        .defaultValue(50);
+        .defaultValue(60);
 
     var ringOpacity = chart.number()
         .title("Ring opacity")
-        .defaultValue(60);
+        .defaultValue(70);
 
     var tickOffset = chart.number()
         .title("Tick offset")
         .defaultValue(0);
+
+    var radius = chart.number()
+        .title("Radius")
+        .defaultValue(40);
 
     var colors = chart.color()
         .title("Color scale");
@@ -93,7 +97,7 @@
             .sortSubgroups(d3.descending)
             .matrix(chordMatrix);
 
-        var innerRadius = Math.min(+width(), +height()) * .41,
+        var innerRadius = Math.min(+width(), +height()) * +radius()/100,
             outerRadius = innerRadius * 1.1;
 
         var fill = d3.scale.ordinal()
@@ -107,6 +111,7 @@
             .style("opacity", +ringOpacity()/100)
             .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
 
+        var tickTranslation = +tickOffset() + outerRadius;
         var ticks = g.append("g").selectAll("g")
             .data(chord.groups)
             .enter().append("g").selectAll("g")
@@ -114,7 +119,7 @@
             .enter().append("g")
             .attr("transform", function(d) {
                 return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-                    + "translate(" + outerRadius + (+tickOffset()) + ",0)";
+                    + "translate(" + tickTranslation + ",0)";
             });
 
         ticks.append("line")
