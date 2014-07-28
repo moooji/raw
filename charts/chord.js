@@ -31,11 +31,11 @@
 
     var tickOffset = chart.number()
         .title("Tick offset")
-        .defaultValue(0);
+        .defaultValue(3);
 
     var radius = chart.number()
         .title("Radius")
-        .defaultValue(40);
+        .defaultValue(38);
 
     var colors = chart.color()
         .title("Color scale");
