@@ -45,8 +45,6 @@
         var chordMatrix = [];
         var uniqueLabels = [];
 
-        console.log(data);
-
         data.children.forEach(function(source){
 
             if(uniqueLabels.indexOf(source.name) === -1){
