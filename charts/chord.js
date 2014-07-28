@@ -15,19 +15,19 @@
 
     var height = chart.number()
         .title("Height")
-        .defaultValue(500);
+        .defaultValue(600);
 
     var padding = chart.number()
         .title("Padding")
-        .defaultValue(6);
+        .defaultValue(7);
 
     var chordOpacity = chart.number()
         .title("Chord opacity")
-        .defaultValue(47);
+        .defaultValue(35);
 
     var ringOpacity = chart.number()
         .title("Ring opacity")
-        .defaultValue(70);
+        .defaultValue(90);
 
     var tickOffset = chart.number()
         .title("Tick offset")
@@ -35,7 +35,7 @@
 
     var radius = chart.number()
         .title("Radius")
-        .defaultValue(38);
+        .defaultValue(37);
 
     var colors = chart.color()
         .title("Color scale");
