@@ -19,7 +19,19 @@
 
     var padding = chart.number()
         .title("Padding")
-        .defaultValue(0.05);
+        .defaultValue(6);
+
+    var chordOpacity = chart.number()
+        .title("Chord opacity")
+        .defaultValue(50);
+
+    var ringOpacity = chart.number()
+        .title("Ring opacity")
+        .defaultValue(60);
+
+    var tickOffset = chart.number()
+        .title("Tick offset")
+        .defaultValue(0);
 
     var colors = chart.color()
         .title("Color scale");
@@ -77,7 +89,7 @@
             .attr("transform", "translate(" +width() / 2 + "," +height() / 2 + ")");
 
         var chord = d3.layout.chord()
-            .padding(+padding())
+            .padding(+padding() / 100)
             .sortSubgroups(d3.descending)
             .matrix(chordMatrix);
 
@@ -92,8 +104,7 @@
             .data(chord.groups)
             .enter().append("path")
             .style("fill", function(d) { return fill(d.index); })
-            .style("stroke", function(d) { return fill(d.index); })
-            .style("opacity", 0.6)
+            .style("opacity", +ringOpacity()/100)
             .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
 
         var ticks = g.append("g").selectAll("g")
@@ -103,7 +114,7 @@
             .enter().append("g")
             .attr("transform", function(d) {
                 return "rotate(" + (d.angle * 180 / Math.PI - 90) + ")"
-                    + "translate(" + outerRadius + ",0)";
+                    + "translate(" + outerRadius + (+tickOffset()) + ",0)";
             });
 
         ticks.append("line")
@@ -127,7 +138,7 @@
             .enter().append("path")
             .attr("d", d3.svg.chord().radius(outerRadius))
             .style("fill", function(d) { return fill(d.target.index); })
-            .style("opacity", 0.5);
+            .style("opacity", +chordOpacity()/100);
 
         // Returns an array of tick angles and labels, given a group.
         function groupTicks(d) {
