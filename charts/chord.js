@@ -31,16 +31,11 @@
 
     chart.draw(function (selection, data){
 
-        var relationsMap = d3.map();
         var chordMatrix = [];
         var uniqueLabels = [];
 
         console.log(data);
-        /*
-         var nested = d3.nest()
-         .key(function (d){ return d.source; })
-         .entries(data.links)
-         */
+
         data.children.forEach(function(source){
 
             if(uniqueLabels.indexOf(source.name) === -1){
@@ -65,23 +60,13 @@
 
         data.children.forEach(function(source){
 
-            if(uniqueLabels.indexOf(source.name) === -1){
-                uniqueLabels.push(source.name);
-            }
-
             var sourceIndex = uniqueLabels.indexOf(source.name);
 
             if(source.children){
                 source.children.forEach(function(target){
 
-                    if(uniqueLabels.indexOf(target.name) === -1){
-                        uniqueLabels.push(target.name);
-                    }
-
                     var targetIndex = uniqueLabels.indexOf(target.name);
-
                     chordMatrix[sourceIndex][targetIndex] += target.size;
-                    //chordMatrix[targetIndex][sourceIndex] += target.size;
                 });
             }
         });
@@ -93,13 +78,6 @@
             .attr("height", +height() )
             .append("g")
             .attr("transform", "translate(" +width() / 2 + "," +height() / 2 + ")");
-
-        var matrix = [
-            [11975,  5871, 8916, 2868],
-            [ 1951, 10048, 2060, 6171],
-            [ 8010, 16145, 8090, 8045],
-            [ 1013,   990,  940, 6907]
-        ];
 
         var chord = d3.layout.chord()
             .padding(.05)
@@ -152,7 +130,7 @@
             .enter().append("path")
             .attr("d", d3.svg.chord().radius(innerRadius))
             .style("fill", function(d) { return fill(d.target.index); })
-            .style("opacity", 0.9);
+            .style("opacity", 0.5);
 
         // Returns an array of tick angles and labels, given a group.
         function groupTicks(d) {
