@@ -41,12 +41,14 @@
             if(uniqueLabels.indexOf(source.name) === -1){
                 uniqueLabels.push(source.name);
             }
-            source.children.forEach(function(target){
+            if(source.children) {
+                source.children.forEach(function (target) {
 
-                if(uniqueLabels.indexOf(target.name) === -1){
-                    uniqueLabels.push(target.name);
-                }
-            });
+                    if (uniqueLabels.indexOf(target.name) === -1) {
+                        uniqueLabels.push(target.name);
+                    }
+                });
+            }
         });
 
         // Prepare matrix
