@@ -23,7 +23,7 @@
 
     var chordOpacity = chart.number()
         .title("Chord opacity")
-        .defaultValue(60);
+        .defaultValue(47);
 
     var ringOpacity = chart.number()
         .title("Ring opacity")
